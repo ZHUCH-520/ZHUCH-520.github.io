@@ -1,0 +1,77 @@
+name: 手机写文章
+description: 用手机提交一篇博客文章，适合图文混排和游记。
+title: "[投稿] "
+labels: ["blog-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        这里是手机写作入口。正文支持 Markdown，也可以直接从手机相册上传图片。
+
+  - type: input
+    id: title
+    attributes:
+      label: 文章标题
+      placeholder: 例如：月亮背面的地球
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 摘要
+      description: 用一句话写给首页和列表页看的摘要。
+      placeholder: 这篇文章写什么，为什么值得留下。
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: 分类
+      options:
+        - 随笔 essay
+        - 游记 travel
+        - 短札 notes
+        - 项目 projects
+      default: 0
+    validations:
+      required: true
+
+  - type: input
+    id: tags
+    attributes:
+      label: 标签
+      description: 用逗号分隔。
+      placeholder: 旅行, 阅读, AI
+
+  - type: input
+    id: cover
+    attributes:
+      label: 封面图 URL（可选）
+      description: 可以先留空；正文里上传的第一张图也可以作为视觉重点。
+
+  - type: dropdown
+    id: status
+    attributes:
+      label: 发布状态
+      options:
+        - 发布
+        - 草稿
+      default: 0
+    validations:
+      required: true
+
+  - type: textarea
+    id: content
+    attributes:
+      label: 正文
+      description: 支持普通文字、Markdown 小标题、引用和图片。手机上点编辑框下方的图片按钮即可上传。
+      placeholder: |
+        从这里开始写。
+
+        ## 一个小标题
+
+        也可以直接上传图片，然后在图片下方写图注。
+    validations:
+      required: true

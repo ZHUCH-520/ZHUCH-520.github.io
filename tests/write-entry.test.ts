@@ -6,15 +6,16 @@ const keystaticConfig = readFileSync('keystatic.config.ts', 'utf8');
 const siteConfig = readFileSync('src/lib/site.ts', 'utf8');
 
 describe('shared writing entry', () => {
-  it('publishes a hidden write page that points collaborators to GitHub.dev and the repo', () => {
+  it('publishes a hidden mobile writing page that points collaborators to the issue form', () => {
     expect(existsSync('src/pages/write.astro')).toBe(true);
 
     const writePage = readFileSync('src/pages/write.astro', 'utf8');
 
-    expect(writePage).toContain('打开网页编辑器');
-    expect(writePage).toContain('https://github.dev/ZHUCH-520/ZHUCH-520.github.io');
+    expect(writePage).toContain('用手机写新文章');
+    expect(writePage).toContain('https://github.com/ZHUCH-520/ZHUCH-520.github.io/issues/new?template=blog-post.yml');
     expect(writePage).toContain('https://github.com/ZHUCH-520/ZHUCH-520.github.io');
-    expect(writePage).toContain('src/content/posts/文章-slug/index.mdx');
+    expect(writePage).toContain('只有仓库 owner、member 或 collaborator 的投稿会被发布');
+    expect(writePage).not.toContain('github.dev');
     expect(siteConfig).not.toContain("href: '/write/'");
   });
 

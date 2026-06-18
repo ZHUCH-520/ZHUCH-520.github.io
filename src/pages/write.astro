@@ -5,32 +5,35 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <BaseLayout title="写作入口" description="Reid's Notes 的共创写作入口。">
   <section class="write-entry section">
     <div class="write-entry__copy">
-      <p class="eyebrow">Writing Room</p>
-      <h1 class="display-title">一起写。</h1>
+      <p class="eyebrow">Mobile Writing Room</p>
+      <h1 class="display-title">手机写。</h1>
       <p class="write-entry__intro article-serif">
-        这里是共创入口。登录 GitHub 后，可以直接在浏览器里写文章、上传图片、提交发布。
+        登录 GitHub 后，用一张表单写文章、上传图片、提交发布。不需要打开代码编辑器。
       </p>
     </div>
 
     <div class="write-entry__actions" aria-label="写作入口">
-      <a class="write-entry__primary" href="https://github.dev/ZHUCH-520/ZHUCH-520.github.io">
-        打开网页编辑器
+      <a
+        class="write-entry__primary"
+        href="https://github.com/ZHUCH-520/ZHUCH-520.github.io/issues/new?template=blog-post.yml"
+      >
+        用手机写新文章
       </a>
       <a class="write-entry__secondary" href="https://github.com/ZHUCH-520/ZHUCH-520.github.io">
         打开 GitHub 仓库
       </a>
       <a
         class="write-entry__secondary"
-        href="https://github.com/ZHUCH-520/ZHUCH-520.github.io/tree/main/templates/post"
+        href="https://github.com/ZHUCH-520/ZHUCH-520.github.io/issues?q=is%3Aissue%20%5B%E6%8A%95%E7%A8%BF%5D"
       >
-        查看文章模板
+        查看投稿记录
       </a>
     </div>
 
     <div class="write-entry__notes article-serif">
-      <p>新文章放在 <code>src/content/posts/文章-slug/index.mdx</code>，图片放在 <code>public/media/posts/</code>。</p>
-      <p>文章可以先保存为草稿；取消草稿后，提交到主分支会自动发布到网站。</p>
-      <p>如果后台提示没有权限，需要先接受 GitHub collaborator 邀请，并确认当前账号有仓库写权限。</p>
+      <p>手机上填写标题、摘要、分类和正文；图片可以直接从相册上传到正文里。</p>
+      <p>提交后，GitHub Actions 会把投稿转成博客文章；发布状态为“发布”时会自动上线。</p>
+      <p>只有仓库 owner、member 或 collaborator 的投稿会被发布。其他人即使打开这个入口，也不会写入网站。</p>
     </div>
   </section>
 </BaseLayout>

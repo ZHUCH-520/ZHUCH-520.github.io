@@ -2,7 +2,7 @@
 
 这个站点的写作目标是：只关心文字、图片、顺序和图注，不为单篇文章写 CSS。
 
-## 网页后台写作
+## 手机共创写作
 
 线上共创入口：
 
@@ -10,7 +10,20 @@
 https://zhuch-520.github.io/write/
 ```
 
-共创者需要先接受 GitHub collaborator 邀请。进入入口后，可以用 GitHub.dev 在浏览器里编辑文章、上传图片并提交。提交到 `main` 后，GitHub Pages 会自动发布。
+共创者需要先接受 GitHub collaborator 邀请。进入入口后，点 `用手机写新文章`，会打开 GitHub Issue Form。
+
+手机投稿流程：
+
+1. 登录 GitHub。
+2. 填写标题、摘要、分类、标签和正文。
+3. 在正文里直接上传图片，图片会按 Markdown 图片格式插入。
+4. 发布状态选择 `发布` 或 `草稿`。
+5. 提交后，GitHub Actions 会把投稿转换为 `src/content/posts/日期-issue-编号/index.mdx`。
+6. 发布状态为 `发布` 时，网站会自动构建并上线。
+
+只有仓库 owner、member 或 collaborator 的投稿会被自动发布。其他人即使打开投稿入口，也不会写入网站。
+
+## 本地后台写作
 
 Keystatic 后台目前用于本地写作：
 
@@ -111,7 +124,7 @@ draft: false
 
 在本地 Keystatic 后台保存文章，只会写到本机文件，不会自动发布到外网。
 
-在线上共创入口用 GitHub.dev 编辑时，提交到 `main` 后会触发 GitHub Pages 自动发布。
+在线上共创入口提交手机投稿时，GitHub Actions 会自动生成文章并发布。
 
 构建检查：
 

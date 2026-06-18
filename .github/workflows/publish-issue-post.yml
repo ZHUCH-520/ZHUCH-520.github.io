@@ -1,0 +1,95 @@
+name: Publish Blog Post From Issue
+
+on:
+  issues:
+    types: [opened, edited, reopened]
+
+permissions:
+  contents: write
+  issues: write
+  pages: write
+  id-token: write
+
+jobs:
+  publish:
+    if: startsWith(github.event.issue.title, '[投稿]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check writer permission
+        id: permission
+        env:
+          ISSUE_AUTHOR_ASSOCIATION: ${{ github.event.issue.author_association }}
+        run: |
+          case "$ISSUE_AUTHOR_ASSOCIATION" in
+            OWNER|MEMBER|COLLABORATOR)
+              echo "trusted=true" >> "$GITHUB_OUTPUT"
+              ;;
+            *)
+              echo "trusted=false" >> "$GITHUB_OUTPUT"
+              echo "Issue author is not a trusted writer: $ISSUE_AUTHOR_ASSOCIATION"
+              ;;
+          esac
+
+      - name: Checkout repository
+        if: steps.permission.outputs.trusted == 'true'
+        uses: actions/checkout@v6
+
+      - name: Convert issue to post
+        if: steps.permission.outputs.trusted == 'true'
+        id: post
+        env:
+          ISSUE_AUTHOR_ASSOCIATION: ${{ github.event.issue.author_association }}
+        run: node scripts/publish-issue-post.mjs
+
+      - name: Commit post
+        if: steps.permission.outputs.trusted == 'true' && steps.post.outputs.skipped == 'false'
+        id: commit
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/content/posts
+
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "Publish post from issue #$ISSUE_NUMBER"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build and upload site
+        if: steps.commit.outputs.changed == 'true' && steps.post.outputs.draft == 'false'
+        uses: withastro/action@v6
+        with:
+          node-version: 24
+
+      - name: Deploy to GitHub Pages
+        if: steps.commit.outputs.changed == 'true' && steps.post.outputs.draft == 'false'
+        id: deployment
+        uses: actions/deploy-pages@v5
+
+      - name: Comment on issue
+        if: steps.permission.outputs.trusted == 'true' && steps.post.outputs.skipped == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          POST_DRAFT: ${{ steps.post.outputs.draft }}
+          POST_PATH: ${{ steps.post.outputs.path }}
+          POST_SLUG: ${{ steps.post.outputs.slug }}
+        run: |
+          if [[ "$POST_DRAFT" == "true" ]]; then
+            BODY="已保存为草稿：\`$POST_PATH\`。把发布状态改成“发布”后再保存 issue，就会自动上线。"
+          else
+            BODY="已发布到博客： https://zhuch-520.github.io/posts/$POST_SLUG/"
+          fi
+
+          gh issue comment "$ISSUE_NUMBER" --body "$BODY"
+
+      - name: Close published issue
+        if: steps.permission.outputs.trusted == 'true' && steps.post.outputs.draft == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: gh issue close "$ISSUE_NUMBER" --reason completed
