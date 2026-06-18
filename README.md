@@ -8,7 +8,7 @@
 - MDX
 - Astro Content Collections
 - GitHub Pages
-- 京华老宋体正文 + 无衬线标题
+- 宋体系统正文 + 无衬线标题
 
 ## Quick Start
 
