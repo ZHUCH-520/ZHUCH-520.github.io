@@ -14,6 +14,7 @@ describe('deployment configuration', () => {
 
   it('uses GitHub Actions instead of Cloudflare Pages scripts', () => {
     expect(existsSync('.github/workflows/deploy.yml')).toBe(true);
+    expect(packageJson.scripts.prebuild).toBe('rm -rf .astro node_modules/.astro');
     expect(packageJson.scripts['cloudflare:login']).toBeUndefined();
     expect(packageJson.scripts['pages:create']).toBeUndefined();
     expect(packageJson.scripts.publish).toBeUndefined();
