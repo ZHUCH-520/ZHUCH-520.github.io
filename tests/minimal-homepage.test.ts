@@ -19,9 +19,11 @@ function findPostEntries(dir: string): string[] {
 }
 
 describe('minimal homepage reset', () => {
-  it('uses the new homepage line and Whole Earth cover image without article lists', async () => {
+  it('keeps the original homepage title with the new serif line and Whole Earth cover image', async () => {
     const homepage = await readFile('src/pages/index.astro', 'utf8');
 
+    expect(homepage).toContain('<h1 class="display-title">在生活和技术之间，慢慢写。</h1>');
+    expect(homepage).toContain('<p class="home-cover__line article-serif">不放弃思考，不交出自己。</p>');
     expect(homepage).toContain('不放弃思考，不交出自己。');
     expect(homepage).toContain('/images/whole-earth-stay-hungry.jpg');
     expect(homepage).not.toContain('PostCard');

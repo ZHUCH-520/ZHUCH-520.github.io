@@ -2,10 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Reid's Notes" description="不放弃思考，不交出自己。">
+<BaseLayout title="Reid's Notes" description="在生活和技术之间，慢慢写。不放弃思考，不交出自己。">
   <section class="home-cover section">
     <div class="home-cover__statement">
-      <h1>不放弃思考，不交出自己。</h1>
+      <h1 class="display-title">在生活和技术之间，慢慢写。</h1>
+      <p class="home-cover__line article-serif">不放弃思考，不交出自己。</p>
     </div>
     <figure class="whole-earth-cover">
       <img
@@ -31,14 +32,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     min-height: calc(100vh - 160px);
   }
 
-  .home-cover__statement h1 {
+  .home-cover__statement {
+    display: grid;
+    gap: 26px;
+  }
+
+  .home-cover__statement .display-title {
     max-width: 760px;
     margin: 0;
-    font-family: var(--serif);
-    font-size: 4.7rem;
-    font-weight: 400;
-    line-height: 1.16;
-    letter-spacing: 0;
+  }
+
+  .home-cover__line {
+    max-width: 560px;
+    margin: 0;
+    color: var(--blue-ink);
+    font-size: 30px;
+    line-height: 1.65;
   }
 
   .whole-earth-cover {
@@ -67,8 +76,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       padding-top: 48px;
     }
 
-    .home-cover__statement h1 {
-      font-size: 3rem;
+    .home-cover__line {
+      font-size: 24px;
     }
   }
 </style>
