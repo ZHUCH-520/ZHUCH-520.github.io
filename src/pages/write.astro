@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="写作入口" description="Reid's Notes 的共创写作入口。">
+  <section class="write-entry section">
+    <div class="write-entry__copy">
+      <p class="eyebrow">Writing Room</p>
+      <h1 class="display-title">一起写。</h1>
+      <p class="write-entry__intro article-serif">
+        这里是共创入口。登录 GitHub 后，可以直接在浏览器里写文章、上传图片、提交发布。
+      </p>
+    </div>
+
+    <div class="write-entry__actions" aria-label="写作入口">
+      <a class="write-entry__primary" href="https://github.dev/ZHUCH-520/ZHUCH-520.github.io">
+        打开网页编辑器
+      </a>
+      <a class="write-entry__secondary" href="https://github.com/ZHUCH-520/ZHUCH-520.github.io">
+        打开 GitHub 仓库
+      </a>
+      <a
+        class="write-entry__secondary"
+        href="https://github.com/ZHUCH-520/ZHUCH-520.github.io/tree/main/templates/post"
+      >
+        查看文章模板
+      </a>
+    </div>
+
+    <div class="write-entry__notes article-serif">
+      <p>新文章放在 <code>src/content/posts/文章-slug/index.mdx</code>，图片放在 <code>public/media/posts/</code>。</p>
+      <p>文章可以先保存为草稿；取消草稿后，提交到主分支会自动发布到网站。</p>
+      <p>如果后台提示没有权限，需要先接受 GitHub collaborator 邀请，并确认当前账号有仓库写权限。</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .write-entry {
+    min-height: calc(100vh - 156px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+    gap: 64px;
+    align-items: center;
+  }
+
+  .write-entry__copy {
+    display: grid;
+    gap: 26px;
+  }
+
+  .write-entry__copy .display-title {
+    max-width: 620px;
+    font-size: clamp(54px, 8vw, 92px);
+  }
+
+  .write-entry__intro {
+    max-width: 540px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 23px;
+    line-height: 1.85;
+  }
+
+  .write-entry__actions {
+    display: grid;
+    gap: 12px;
+  }
+
+  .write-entry__actions a {
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line);
+    text-decoration: none;
+    font-size: 15px;
+  }
+
+  .write-entry__primary {
+    background: var(--ink);
+    color: var(--paper-strong);
+  }
+
+  .write-entry__primary:hover {
+    color: var(--paper-strong);
+  }
+
+  .write-entry__secondary {
+    background: rgba(255, 253, 247, 0.48);
+    color: var(--muted);
+  }
+
+  .write-entry__notes {
+    grid-column: 1 / -1;
+    max-width: 720px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 17px;
+    line-height: 1.8;
+  }
+
+  .write-entry__notes p {
+    margin: 0;
+  }
+
+  .write-entry__notes p + p {
+    margin-top: 10px;
+  }
+
+  .write-entry__notes code {
+    font-family: var(--sans);
+    font-size: 0.88em;
+    color: var(--ink);
+  }
+
+  @media (max-width: 820px) {
+    .write-entry {
+      grid-template-columns: 1fr;
+      gap: 34px;
+      min-height: auto;
+      padding-top: 48px;
+    }
+  }
+</style>

@@ -4,6 +4,16 @@
 
 ## 网页后台写作
 
+线上共创入口：
+
+```txt
+https://zhuch-520.github.io/write/
+```
+
+共创者需要先接受 GitHub collaborator 邀请。进入入口后，可以用 GitHub.dev 在浏览器里编辑文章、上传图片并提交。提交到 `main` 后，GitHub Pages 会自动发布。
+
+Keystatic 后台目前用于本地写作：
+
 启动本地预览：
 
 ```bash
@@ -99,7 +109,9 @@ draft: false
 
 ## 发布
 
-保存文章只会写到本机文件，不会自动发布到外网。
+在本地 Keystatic 后台保存文章，只会写到本机文件，不会自动发布到外网。
+
+在线上共创入口用 GitHub.dev 编辑时，提交到 `main` 后会触发 GitHub Pages 自动发布。
 
 构建检查：
 
