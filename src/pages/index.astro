@@ -26,32 +26,40 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <style>
   .home-cover {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
-    gap: 56px;
-    align-items: center;
-    min-height: calc(100vh - 160px);
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 340px);
+    gap: 72px;
+    align-items: start;
+    min-height: calc(100vh - 156px);
+    padding-top: 92px;
   }
 
   .home-cover__statement {
     display: grid;
-    gap: 26px;
+    gap: 34px;
   }
 
   .home-cover__statement .display-title {
-    max-width: 760px;
+    max-width: 720px;
     margin: 0;
+    font-size: clamp(48px, 7.2vw, 86px);
+    line-height: 1.06;
   }
 
   .home-cover__line {
-    max-width: 560px;
+    max-width: 420px;
     margin: 0;
-    color: var(--blue-ink);
-    font-size: 30px;
-    line-height: 1.65;
+    padding-left: 18px;
+    border-left: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 21px;
+    line-height: 1.85;
   }
 
   .whole-earth-cover {
+    width: min(100%, 340px);
+    justify-self: end;
     margin: 0;
+    margin-top: 72px;
   }
 
   .whole-earth-cover img {
@@ -73,11 +81,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       grid-template-columns: 1fr;
       gap: 32px;
       min-height: auto;
-      padding-top: 48px;
+      padding-top: 56px;
+    }
+
+    .home-cover__statement {
+      gap: 26px;
     }
 
     .home-cover__line {
-      font-size: 24px;
+      max-width: 360px;
+      font-size: 19px;
+    }
+
+    .whole-earth-cover {
+      width: min(78vw, 320px);
+      justify-self: start;
+      margin-top: 18px;
     }
   }
 </style>
