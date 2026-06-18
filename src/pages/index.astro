@@ -8,16 +8,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <h1 class="display-title">在生活和技术之间，慢慢写。</h1>
       <p class="home-cover__line article-serif">不放弃思考，不交出自己。</p>
     </div>
-    <figure class="whole-earth-cover">
+    <figure class="earthrise-cover">
       <img
-        src="/images/whole-earth-stay-hungry.jpg"
-        alt="Whole Earth Catalog 最后一期封底，写有 Stay Hungry. Stay Foolish."
-        width="700"
-        height="953"
+        src="/images/earthrise-apollo8.jpg"
+        alt="Apollo 8 从月球附近拍摄的地球升起照片"
+        width="2400"
+        height="2400"
       />
       <figcaption>
-        Photo by <a href="https://www.flickr.com/photos/tracilawson/6216133338">Traci Lawson</a>,
-        licensed under <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>.
+        NASA Apollo 8 / Earthrise, AS08-14-2383. Used on the Spring 1969 Whole Earth Catalog cover.
       </figcaption>
     </figure>
   </section>
@@ -25,78 +24,112 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <style>
   .home-cover {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(220px, 340px);
-    gap: 72px;
-    align-items: start;
+    position: relative;
     min-height: calc(100vh - 156px);
-    padding-top: 92px;
+    display: grid;
+    align-items: end;
+    overflow: hidden;
+    padding-top: 72px;
+    padding-bottom: 78px;
   }
 
   .home-cover__statement {
+    position: relative;
+    z-index: 1;
     display: grid;
-    gap: 34px;
+    gap: 30px;
+    max-width: 700px;
+    padding-bottom: 18px;
   }
 
   .home-cover__statement .display-title {
-    max-width: 720px;
+    max-width: 700px;
     margin: 0;
-    font-size: clamp(48px, 7.2vw, 86px);
+    font-size: clamp(52px, 7.4vw, 90px);
     line-height: 1.06;
   }
 
   .home-cover__line {
-    max-width: 420px;
+    max-width: 360px;
     margin: 0;
-    padding-left: 18px;
-    border-left: 1px solid var(--line);
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
     color: var(--muted);
     font-size: 21px;
     line-height: 1.85;
   }
 
-  .whole-earth-cover {
-    width: min(100%, 340px);
-    justify-self: end;
+  .earthrise-cover {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 54%;
     margin: 0;
-    margin-top: 72px;
+    overflow: hidden;
+    border-left: 1px solid var(--line);
   }
 
-  .whole-earth-cover img {
+  .earthrise-cover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(247, 243, 234, 0.94), rgba(247, 243, 234, 0.18) 54%, rgba(247, 243, 234, 0));
+    pointer-events: none;
+  }
+
+  .earthrise-cover img {
     width: 100%;
-    height: auto;
-    border: 1px solid var(--line);
-    background: var(--paper-strong);
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+    background: #050505;
   }
 
-  .whole-earth-cover figcaption {
-    margin-top: 10px;
-    color: var(--muted);
+  .earthrise-cover figcaption {
+    position: absolute;
+    right: 18px;
+    bottom: 16px;
+    z-index: 1;
+    max-width: 280px;
+    color: rgba(255, 255, 255, 0.68);
     font-size: 12px;
     line-height: 1.5;
+    text-align: right;
   }
 
   @media (max-width: 820px) {
     .home-cover {
-      grid-template-columns: 1fr;
-      gap: 32px;
       min-height: auto;
-      padding-top: 56px;
+      padding-top: 48px;
+      padding-bottom: 52px;
     }
 
     .home-cover__statement {
-      gap: 26px;
+      gap: 24px;
+      padding-bottom: 0;
     }
 
     .home-cover__line {
-      max-width: 360px;
+      max-width: 340px;
       font-size: 19px;
     }
 
-    .whole-earth-cover {
-      width: min(78vw, 320px);
-      justify-self: start;
-      margin-top: 18px;
+    .earthrise-cover {
+      position: relative;
+      inset: auto;
+      width: 100%;
+      height: 360px;
+      order: 2;
+      margin-top: 38px;
+      border: 1px solid var(--line);
+    }
+
+    .earthrise-cover::after {
+      display: none;
+    }
+
+    .earthrise-cover figcaption {
+      right: 14px;
+      bottom: 12px;
     }
   }
 </style>
