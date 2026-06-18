@@ -1,0 +1,72 @@
+---
+interface Props {
+  start: string;
+  end: string;
+  stops?: string[];
+  date?: string;
+  transport?: string;
+}
+
+const { start, end, stops = [], date, transport } = Astro.props;
+---
+
+<aside class="route-map">
+  <p class="route-map__label">Route</p>
+  <div class="route-map__path">
+    <strong>{start}</strong>
+    {stops.map((stop) => <span>{stop}</span>)}
+    <strong>{end}</strong>
+  </div>
+  {(date || transport) && (
+    <p class="route-map__meta">{[date, transport].filter(Boolean).join(' · ')}</p>
+  )}
+</aside>
+
+<style>
+  .route-map {
+    margin: 2.2em 0;
+    padding: 20px;
+    border: 1px solid var(--line);
+    background: var(--paper-strong);
+    font-family: var(--sans);
+  }
+
+  .route-map__label {
+    margin: 0 0 14px;
+    color: var(--sage);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .route-map__path {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .route-map__path span,
+  .route-map__path strong {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 0 10px;
+    border: 1px solid var(--line);
+    font-size: 13px;
+  }
+
+  .route-map__path strong {
+    color: var(--ink);
+  }
+
+  .route-map__path span {
+    color: var(--muted);
+  }
+
+  .route-map__meta {
+    margin: 14px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+  }
+</style>

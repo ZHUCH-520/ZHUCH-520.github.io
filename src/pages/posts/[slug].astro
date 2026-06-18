@@ -1,0 +1,46 @@
+---
+import { getCollection, render } from 'astro:content';
+import PostLayout from '../../layouts/PostLayout.astro';
+import PostCard from '../../components/layout/PostCard.astro';
+import Figure from '../../components/content/Figure.astro';
+import ImageGrid from '../../components/content/ImageGrid.astro';
+import ImagePair from '../../components/content/ImagePair.astro';
+import ImageText from '../../components/content/ImageText.astro';
+import Note from '../../components/content/Note.astro';
+import PullQuote from '../../components/content/PullQuote.astro';
+import RouteMap from '../../components/content/RouteMap.astro';
+import WideImage from '../../components/content/WideImage.astro';
+import { getRelatedPosts, getVisiblePosts } from '../../lib/post-utils';
+
+export async function getStaticPaths() {
+  const posts = getVisiblePosts(await getCollection('posts'));
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const relatedPosts = getRelatedPosts(await getCollection('posts'), post, 3);
+const mdxComponents = {
+  Figure,
+  ImageGrid,
+  ImagePair,
+  ImageText,
+  Note,
+  PullQuote,
+  RouteMap,
+  WideImage,
+};
+---
+
+<PostLayout post={post}>
+  <Content components={mdxComponents} />
+  {relatedPosts.length > 0 && (
+    <nav class="article-nav" aria-label="相关文章">
+      <p class="eyebrow">Related</p>
+      {relatedPosts.map((related) => <PostCard post={related} />)}
+    </nav>
+  )}
+</PostLayout>

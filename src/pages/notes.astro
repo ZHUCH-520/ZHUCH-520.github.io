@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/layout/PostCard.astro';
+import { getCategoryPosts } from '../lib/post-utils';
+
+const posts = getCategoryPosts(await getCollection('posts'), 'notes');
+---
+
+<BaseLayout title="短札" description="轻量观察、阅读摘记、实验想法。">
+  <section class="section">
+    <p class="eyebrow">Notes</p>
+    <h1 class="display-title">短札</h1>
+    <p class="display-copy">不一定完整，但要留下一个清晰的问题、感受或句子。</p>
+  </section>
+  <section class="section">
+    {posts.length > 0 ? posts.map((post) => <PostCard post={post} />) : <p class="empty-state">还没有公开短札。</p>}
+  </section>
+</BaseLayout>

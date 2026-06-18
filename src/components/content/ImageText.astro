@@ -1,0 +1,76 @@
+---
+interface Props {
+  src: string;
+  alt?: string;
+  caption?: string;
+  side?: 'left' | 'right';
+}
+
+const { src, alt = '', caption, side = 'right' } = Astro.props;
+---
+
+<section class:list={['image-text', side === 'left' && 'image-text--left']}>
+  <figure>
+    <img src={src} alt={alt} loading="lazy" />
+    {caption && <figcaption>{caption}</figcaption>}
+  </figure>
+  <div class="image-text__body">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .image-text {
+    width: min(100vw - 48px, 980px);
+    margin: 2.4em 50%;
+    transform: translateX(-50%);
+    display: grid;
+    grid-template-columns: minmax(260px, 0.92fr) minmax(0, 1fr);
+    gap: 28px;
+    align-items: center;
+    padding: 26px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .image-text--left figure {
+    order: -1;
+  }
+
+  .image-text:not(.image-text--left) figure {
+    order: 2;
+  }
+
+  .image-text figure {
+    margin: 0;
+  }
+
+  .image-text img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border: 1px solid var(--line);
+  }
+
+  .image-text figcaption {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .image-text__body {
+    color: var(--ink);
+  }
+
+  @media (max-width: 760px) {
+    .image-text {
+      grid-template-columns: 1fr;
+    }
+
+    .image-text:not(.image-text--left) figure,
+    .image-text--left figure {
+      order: 0;
+    }
+  }
+</style>

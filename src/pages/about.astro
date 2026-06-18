@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="关于" description="关于 Reid's Notes。">
+  <section class="section about-page">
+    <p class="eyebrow">About</p>
+    <h1 class="display-title">这里是一间安静的个人编辑部。</h1>
+    <div class="article-content about-copy">
+      <p>我想把这个网站当作一个长期写作的地方：游记、阅读、AI 观察、项目记录，和一些暂时无法归类的小事。</p>
+      <p>它不追求更新频率，也不太像社交媒体。更理想的状态是：每隔一段时间，往里面认真加一页。</p>
+      <p>如果你想联系我，可以先把这里当作一个占位。正式上线前再补充邮箱、社交链接或其他入口。</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-page {
+    min-height: 640px;
+  }
+
+  .about-copy {
+    margin-left: 0;
+  }
+</style>

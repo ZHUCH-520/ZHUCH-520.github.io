@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatPostDate } from '../../lib/post-utils';
+import { categoryLabels } from '../../lib/site';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+---
+
+<a class="post-card" href={`/posts/${post.id}/`}>
+  <time datetime={post.data.date.toISOString()}>{formatPostDate(post.data.date)}</time>
+  <div>
+    <p class="eyebrow">{categoryLabels[post.data.category]}</p>
+    <h3>{post.data.title}</h3>
+    <p>{post.data.description}</p>
+    <div class="tag-list" aria-label="标签">
+      {post.data.tags.map((tag) => <span class="tag">{tag}</span>)}
+    </div>
+  </div>
+</a>
