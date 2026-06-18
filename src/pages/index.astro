@@ -1,140 +1,74 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PostCard from '../components/layout/PostCard.astro';
-import { getCategoryPosts, getVisiblePosts } from '../lib/post-utils';
-
-const posts = await getCollection('posts');
-const visiblePosts = getVisiblePosts(posts);
-const featuredPosts = visiblePosts.filter((post) => post.data.featured).slice(0, 2);
-const latestPosts = visiblePosts.slice(0, 4);
-const travelPosts = getCategoryPosts(posts, 'travel').slice(0, 2);
 ---
 
-<BaseLayout>
-  <section class="home-hero section">
-    <div>
-      <p class="eyebrow">Quiet Editorial / Personal Publishing</p>
-      <h1 class="display-title">在生活和技术之间，慢慢写。</h1>
+<BaseLayout title="Reid's Notes" description="不放弃思考，不交出自己。">
+  <section class="home-cover section">
+    <div class="home-cover__statement">
+      <h1>不放弃思考，不交出自己。</h1>
     </div>
-    <div class="home-hero__side">
-      <p class="display-copy">
-        这里收集游记、阅读、AI 观察和一些在路上想明白的小事。不是 feed，更像一本持续加页的个人杂志。
-      </p>
-      <div class="home-hero__meta">
-        <span>Writing</span>
-        <span>Travel</span>
-        <span>AI Notes</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="feature-strip section">
-    <div class="feature-strip__image">
+    <figure class="whole-earth-cover">
       <img
-        src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1400&q=82"
-        alt="京都街道"
+        src="/images/whole-earth-stay-hungry.jpg"
+        alt="Whole Earth Catalog 最后一期封底，写有 Stay Hungry. Stay Foolish."
+        width="700"
+        height="953"
       />
-    </div>
-    <div class="feature-strip__copy article-serif">
-      <p class="eyebrow">Featured</p>
-      <h2>图像作为文章的一部分，而不是单纯的封面装饰。</h2>
-      <p>游记页会更重图片，但仍然保持文章节奏。正文和图注使用京华老宋体，入口标题和导航保留无衬线的清爽。</p>
-    </div>
-  </section>
-
-  <section class="section grid-two">
-    <div>
-      <p class="eyebrow">Selected</p>
-      {featuredPosts.map((post) => <PostCard post={post} />)}
-    </div>
-    <div>
-      <p class="eyebrow">Travel Notes</p>
-      {travelPosts.length > 0 ? (
-        travelPosts.map((post) => <PostCard post={post} />)
-      ) : (
-        <p class="empty-state">还没有公开游记。</p>
-      )}
-    </div>
-  </section>
-
-  <section class="section">
-    <p class="eyebrow">Latest</p>
-    {latestPosts.map((post) => <PostCard post={post} />)}
+      <figcaption>
+        Photo by <a href="https://www.flickr.com/photos/tracilawson/6216133338">Traci Lawson</a>,
+        licensed under <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>.
+      </figcaption>
+    </figure>
   </section>
 </BaseLayout>
 
 <style>
-  .home-hero {
+  .home-cover {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
-    gap: 48px;
-    align-items: end;
-    min-height: 520px;
-  }
-
-  .home-hero__side {
-    display: grid;
-    gap: 28px;
-  }
-
-  .home-hero__meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .home-hero__meta span {
-    display: inline-flex;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+    gap: 56px;
     align-items: center;
-    min-height: 30px;
-    padding: 0 10px;
+    min-height: calc(100vh - 160px);
+  }
+
+  .home-cover__statement h1 {
+    max-width: 760px;
+    margin: 0;
+    font-family: var(--serif);
+    font-size: 4.7rem;
+    font-weight: 400;
+    line-height: 1.16;
+    letter-spacing: 0;
+  }
+
+  .whole-earth-cover {
+    margin: 0;
+  }
+
+  .whole-earth-cover img {
+    width: 100%;
+    height: auto;
     border: 1px solid var(--line);
+    background: var(--paper-strong);
+  }
+
+  .whole-earth-cover figcaption {
+    margin-top: 10px;
     color: var(--muted);
     font-size: 12px;
-  }
-
-  .feature-strip {
-    display: grid;
-    grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
-    gap: 38px;
-    align-items: center;
-  }
-
-  .feature-strip__image {
-    aspect-ratio: 4 / 5;
-    border: 1px solid var(--line);
-    overflow: hidden;
-  }
-
-  .feature-strip__image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .feature-strip__copy h2 {
-    margin: 0 0 18px;
-    font-size: clamp(30px, 5vw, 56px);
-    line-height: 1.15;
-    font-weight: 400;
-  }
-
-  .feature-strip__copy p:last-child {
-    color: var(--muted);
-    font-size: 18px;
-    line-height: 1.9;
+    line-height: 1.5;
   }
 
   @media (max-width: 820px) {
-    .home-hero,
-    .feature-strip {
+    .home-cover {
       grid-template-columns: 1fr;
+      gap: 32px;
       min-height: auto;
+      padding-top: 48px;
     }
 
-    .feature-strip__image {
-      aspect-ratio: 16 / 10;
+    .home-cover__statement h1 {
+      font-size: 3rem;
     }
   }
 </style>
